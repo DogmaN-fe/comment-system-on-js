@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/block-with-comments__styles.css">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- Наполнение старницы -->
+    <div class="rectangle-1"></div>
+
+    <div class="main flex">
+
+
+        <div class="rectangle-2"></div>
+
+        <div class="block-comments-and-rectnagle">
+            <div class="rectangles grid">
+                <div class="rectangle-3"></div>
+                <div class="rectangle-3"></div>
+                <div class="rectangle-3"></div>
+                <div class="rectangle-3"></div>
+                <div class="rectangle-3"></div>
+                <div class="rectangle-3"></div>
+                <div class="rectangle-3"></div>
+                <div class="rectangle-3"></div>
+            </div>
+
+            <div class="rectangle-4"></div>
+
+            <div class="stripe"></div>
+
+            <!-- Секция отправки комментария -->
+
+            <form action="" class="form-commentary flex">
+                <img class="photo-author" src="./images/Максим Авдеенко.png" alt="аватар автора">
+                <label class="label">
+                    <div class="info-about-comm flex">
+                        <p class="name-author">Максим Авдеенко</p>
+                        <p class="max-symbols">Макс. 1000 символов</p>
+                    </div>
+                    <textarea class="form-commentary-desc" name="new-comment" id="new-comment"
+                        placeholder="Введите текст сообщения..."></textarea>
+                </label>
+                <input class="add-button" id="add-button" type="button" value="Отправить">
+            </form>
+
+            <!-- Секция всех комментариев -->
+            <div class="comments">
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+    <script type="module" src="./scripts/mainComment.js"></script>
+</body>
+
+</html>
