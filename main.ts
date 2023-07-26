@@ -1,12 +1,13 @@
-import MainComment from "./scripts/mainComment.js";
+import MainComment from "./tsClasses/mainComment.js";
+import changeCountLikes from "./changedLikes.js"
 
 const addBtn = document.querySelector("#add-button") as HTMLButtonElement;
 const textArea = document.querySelector('#new-comment') as HTMLTextAreaElement;
-const allComments = document.querySelector('.comments') as HTMLDivElement;
-const maxSymbolsErorr = document.querySelector('.max-symbols') as HTMLParagraphElement;
+const allComments = document.querySelector('.commentares') as HTMLDivElement;
+const maxSymbolsErorr = document.querySelector('.info-about-commentary__max-symbols') as HTMLParagraphElement;
 
 let arrCommnets: Array<MainComment> = [];
-let CountCommentares = Number(localStorage.getItem(`CountCommentares`) || '') || 0;
+let CountCommentares: number = Number(localStorage.getItem(`CountCommentares`) || '');
 
 /**
  * Добавление комментария на старницу
@@ -15,7 +16,7 @@ function addCommentary(): void {
     // Фиксирование даты написания комментария
     const date: Date = new Date;
 
-    let comment: MainComment = new MainComment("Максим Авдеенко", "./images/Максим Авдеенко.png", date.toLocaleString(), textArea.value, 5, ++CountCommentares);
+    let comment: MainComment = new MainComment("Максим Авдеенко", "./images/Максим Авдеенко.png", date.toLocaleString(), textArea.value, 0, ++CountCommentares);
 
     allComments.prepend(comment.showComment());
 
@@ -23,8 +24,10 @@ function addCommentary(): void {
     saveCountCommentares();
 
     textArea.value = '';
+
     maxSymbolsErorr.textContent = `Макс. 1000 символов`;
 
+    addBtn.style.backgroundColor = '';
 
     addBtn.removeEventListener('click', addCommentary)
 }
@@ -63,21 +66,37 @@ function saveCountCommentares(): void {
     localStorage.setItem('CountCommentares', `${CountCommentares}`);
 }
 
+function activationLikes() {
+    arrCommnets.forEach(element => {
+        changeCountLikes(element, 1);
+    });
+}
 
 /**
  * Загрузка комментариев
  */
 function loadCommentares(): void {
     for (let i = 1; i <= CountCommentares; i++) {
-        let str: string = localStorage.getItem(`commentary-Максим Авдеенко-${i}`) || ' ';
+        let str: string = localStorage.getItem(`commentaryId-Максим Авдеенко_${i}`) || '';
 
         let parseJSON = JSON.parse(str);
 
-        let comment: MainComment = new MainComment(parseJSON.userName, parseJSON.userPhoto, parseJSON.datePublication, parseJSON.commentaryText, parseJSON.countLikes, parseJSON.idComment);
+        let commentary: MainComment = new MainComment(parseJSON.userName, parseJSON.userPhoto, parseJSON.datePublication, parseJSON.commentaryText, parseJSON.countLikes, parseJSON.idComment);
 
-        allComments.prepend(comment.showComment());
+        allComments.prepend(commentary.showComment());
+
+        arrCommnets.push(commentary);
     }
+    
+    // Добавление всем кнопка лайков ивентов с изменением количества лайков
+    activationLikes();
 }
 
+
+
+////////////////////////////////////////////////////
 textArea.addEventListener('input', checkMaxSymbols);
+
+// Загрузка комментариев перед добавление ивентов кнопка
 loadCommentares();
+

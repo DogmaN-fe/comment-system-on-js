@@ -38,27 +38,28 @@
 
             <!-- Секция отправки комментария -->
 
-            <form action="" class="form-commentary flex">
-                <img class="photo-author" src="./images/Максим Авдеенко.png" alt="аватар автора">
-                <label class="label">
-                    <div class="info-about-comm flex">
-                        <p class="name-author">Максим Авдеенко</p>
-                        <p class="max-symbols">Макс. 1000 символов</p>
+            <form action="" class="form__commentary flex">
+                <img class="form__commentary-photo-author photo-author" src="./images/Максим Авдеенко.png" alt="аватар автора">
+                <label class="form__commentary-label">
+                    <div class="label__info-about-commentary flex">
+                        <p class="info-about-commentary__name-author">Максим Авдеенко</p>
+                        <p class="info-about-commentary__max-symbols">Макс. 1000 символов</p>
                     </div>
-                    <textarea class="form-commentary-desc" name="new-comment" id="new-comment"
+                    <textarea class="form__commentary-description" name="new-comment" id="new-comment"
                         placeholder="Введите текст сообщения..."></textarea>
                 </label>
-                <input class="add-button" id="add-button" type="button" value="Отправить">
+                <input class="form__commentary-add-commentary" id="add-button" type="button" value="Отправить">
             </form>
 
             <!-- Секция всех комментариев -->
-            <div class="comments">
+            <div class="commentares">
             </div>
         </div>
     </div>
 
     <script type="module" src="./main.js"></script>
-    <script type="module" src="./scripts/mainComment.js"></script>
+    <script type="module" src="./tsClasses/mainComment.js"></script>
+    <script type="module" src="./changedLikes.js"></script>
 </body>
 
 </html>

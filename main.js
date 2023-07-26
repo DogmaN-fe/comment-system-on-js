@@ -1,22 +1,24 @@
-import MainComment from "./scripts/mainComment.js";
+import MainComment from "./tsClasses/mainComment.js";
+import changeCountLikes from "./changedLikes.js";
 const addBtn = document.querySelector("#add-button");
 const textArea = document.querySelector('#new-comment');
-const allComments = document.querySelector('.comments');
-const maxSymbolsErorr = document.querySelector('.max-symbols');
+const allComments = document.querySelector('.commentares');
+const maxSymbolsErorr = document.querySelector('.info-about-commentary__max-symbols');
 let arrCommnets = [];
-let CountCommentares = Number(localStorage.getItem(`CountCommentares`) || '') || 0;
+let CountCommentares = Number(localStorage.getItem(`CountCommentares`) || '');
 /**
  * Добавление комментария на старницу
  */
 function addCommentary() {
     // Фиксирование даты написания комментария
     const date = new Date;
-    let comment = new MainComment("Максим Авдеенко", "./images/Максим Авдеенко.png", date.toLocaleString(), textArea.value, 5, ++CountCommentares);
+    let comment = new MainComment("Максим Авдеенко", "./images/Максим Авдеенко.png", date.toLocaleString(), textArea.value, 0, ++CountCommentares);
     allComments.prepend(comment.showComment());
     comment.saveComentOnLocalStorage();
     saveCountCommentares();
     textArea.value = '';
     maxSymbolsErorr.textContent = `Макс. 1000 символов`;
+    addBtn.style.backgroundColor = '';
     addBtn.removeEventListener('click', addCommentary);
 }
 /**
@@ -48,16 +50,26 @@ function checkMaxSymbols() {
 function saveCountCommentares() {
     localStorage.setItem('CountCommentares', `${CountCommentares}`);
 }
+function activationLikes() {
+    arrCommnets.forEach(element => {
+        changeCountLikes(element, 1);
+    });
+}
 /**
  * Загрузка комментариев
  */
 function loadCommentares() {
     for (let i = 1; i <= CountCommentares; i++) {
-        let str = localStorage.getItem(`commentary-Максим Авдеенко-${i}`) || ' ';
+        let str = localStorage.getItem(`commentaryId-Максим Авдеенко_${i}`) || '';
         let parseJSON = JSON.parse(str);
-        let comment = new MainComment(parseJSON.userName, parseJSON.userPhoto, parseJSON.datePublication, parseJSON.commentaryText, parseJSON.countLikes, parseJSON.idComment);
-        allComments.prepend(comment.showComment());
+        let commentary = new MainComment(parseJSON.userName, parseJSON.userPhoto, parseJSON.datePublication, parseJSON.commentaryText, parseJSON.countLikes, parseJSON.idComment);
+        allComments.prepend(commentary.showComment());
+        arrCommnets.push(commentary);
     }
+    // Добавление всем кнопка лайков ивентов с изменением количества лайков
+    activationLikes();
 }
+////////////////////////////////////////////////////
 textArea.addEventListener('input', checkMaxSymbols);
+// Загрузка комментариев перед добавление ивентов кнопка
 loadCommentares();
