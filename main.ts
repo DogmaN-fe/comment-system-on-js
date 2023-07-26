@@ -98,8 +98,8 @@ function activationLikes(): void {
     let was: number = 0;
     arrCommnets.forEach(element1 => {
         arrAnswers.forEach(element2 => {
-            if(element1.GetIdComentary() == element2.GetIdComentary() && was == 0){
-                changeCountLikes(element1, element2, 1);
+            if(element1.GetIdComentary() == element2.GetIdComentary()){
+                changeCountLikes(element1, element2, 1, was);
                 was++;
             }
         });
