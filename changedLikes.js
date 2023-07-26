@@ -1,22 +1,48 @@
-export default function changeCountLikes(commentary, changedCountLikes) {
-    const changeLikes = document.querySelectorAll(`[data-id-commentary="${commentary.GetIdComentary()}"]`);
-    const decreaseButton = changeLikes[1];
-    const increaseButton = changeLikes[3];
-    const likesCounter = changeLikes[2];
-    decreaseButton.addEventListener('click', () => {
-        if ((Number(likesCounter.innerHTML) - changedCountLikes) < 0) {
-            likesCounter.classList.add('count-likes_red');
+/**
+ * Функция добавляет кнопкам лайка возможность изменять их количество на сайте
+ */
+export default function changeCountLikes(commentary, answer, changedCountLikes) {
+    const changeLikesCommentary = document.querySelectorAll(`[data-id-commentary="${commentary.GetIdComentary()}"]`);
+    const decreaseButtonchangeLikesCommentary = changeLikesCommentary[1];
+    const increaseButtonchangeLikesCommentary = changeLikesCommentary[3];
+    const likesCounterchangeLikesCommentary = changeLikesCommentary[2];
+    const changeLikesAnswer = document.querySelectorAll(`[data-id-answer="${answer.GetIdAnswer()}"]`);
+    const decreaseButtonchangeLikesAnswer = changeLikesAnswer[1];
+    const increaseButtonchangeLikesAnswer = changeLikesAnswer[3];
+    const likesCounterchangeLikesAnswer = changeLikesAnswer[2];
+    // Для комментариев
+    decreaseButtonchangeLikesCommentary.addEventListener('click', () => {
+        if ((Number(likesCounterchangeLikesCommentary.innerHTML) - changedCountLikes) < 0) {
+            likesCounterchangeLikesCommentary.classList.add('count-likes_red');
         }
-        likesCounter.innerHTML = String(Number(likesCounter.innerHTML) - changedCountLikes);
+        console.log(changedCountLikes);
+        likesCounterchangeLikesCommentary.innerHTML = String(Number(likesCounterchangeLikesCommentary.innerHTML) - changedCountLikes);
         commentary.changeCountLikes(-changedCountLikes);
         commentary.saveComentOnLocalStorage();
     });
-    increaseButton.addEventListener('click', () => {
-        if ((Number(likesCounter.innerHTML) + changedCountLikes) >= 0) {
-            likesCounter.classList.remove('count-likes_red');
+    increaseButtonchangeLikesCommentary.addEventListener('click', () => {
+        if ((Number(likesCounterchangeLikesCommentary.innerHTML) + changedCountLikes) >= 0) {
+            likesCounterchangeLikesCommentary.classList.remove('count-likes_red');
         }
-        likesCounter.innerHTML = String(Number(likesCounter.innerHTML) + changedCountLikes);
+        likesCounterchangeLikesCommentary.innerHTML = String(Number(likesCounterchangeLikesCommentary.innerHTML) + changedCountLikes);
         commentary.changeCountLikes(changedCountLikes);
         commentary.saveComentOnLocalStorage();
+    });
+    // Для ответов
+    decreaseButtonchangeLikesAnswer.addEventListener('click', () => {
+        if ((Number(likesCounterchangeLikesAnswer.innerHTML) - changedCountLikes) < 0) {
+            likesCounterchangeLikesAnswer.classList.add('count-likes_red');
+        }
+        likesCounterchangeLikesAnswer.innerHTML = String(Number(likesCounterchangeLikesAnswer.innerHTML) - changedCountLikes);
+        answer.changeCountLikes(-changedCountLikes);
+        answer.saveComentOnLocalStorage();
+    });
+    increaseButtonchangeLikesAnswer.addEventListener('click', () => {
+        if ((Number(likesCounterchangeLikesAnswer.innerHTML) + changedCountLikes) >= 0) {
+            likesCounterchangeLikesAnswer.classList.remove('count-likes_red');
+        }
+        likesCounterchangeLikesAnswer.innerHTML = String(Number(likesCounterchangeLikesAnswer.innerHTML) + changedCountLikes);
+        answer.changeCountLikes(changedCountLikes);
+        answer.saveComentOnLocalStorage();
     });
 }

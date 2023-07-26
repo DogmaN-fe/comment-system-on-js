@@ -1,10 +1,10 @@
 export default class MainComment {
-    private userName: string;
-    private userPhoto: string;
-    private datePublication: string;
-    private commentaryText: string;
-    private countLikes: number;
-    private idComment: number;
+    public userName: string;
+    protected userPhoto: string;
+    protected datePublication: string;
+    protected commentaryText: string;
+    protected countLikes: number;
+    protected idComment: number;
 
 
     constructor(userName: string, userPhoto: string, datePublication: string, commentaryText: string, countLikes: number, idComment: number) {
@@ -17,9 +17,12 @@ export default class MainComment {
     }
 
     showComment() {
+        const block = document.createElement('div');
+        block.className = 'block-commentary-and-answers';
+        block.setAttribute(`data-id-commentary`, `${this.idComment}`);
+
         const comment = document.createElement('div');
         comment.className = 'commentary flex';
-        comment.setAttribute(`data-id-commentary`, `${this.idComment}`);
 
         const img = document.createElement('img');
         img.className = 'photo-author';
@@ -31,12 +34,14 @@ export default class MainComment {
         content.className = 'commentary__content';
         comment.appendChild(content);
 
+        block.appendChild(comment);
+
         const title = document.createElement('span');
         title.className = 'commentary__content-title flex';
         content.appendChild(title);
 
         const name = document.createElement('p');
-        name.className = 'name-author name-commentator';
+        name.className = 'info-about-commentary__name-author name-commentator';
         name.innerText = this.userName;
         title.appendChild(name);
 
@@ -54,6 +59,29 @@ export default class MainComment {
         actions.className = 'commentary__content-actions flex';
         content.appendChild(actions);
 
+
+        const form = document.createElement("form");
+        form.action = "";
+        form.className = "form-answer flex hide";
+
+        const textarea = document.createElement("textarea");
+        textarea.className = "form__answer-description form__commentary-description";
+        textarea.name = "new-answer";
+        textarea.id = "new-answer";
+        textarea.placeholder = "Введите текст сообщения...";
+
+        const input = document.createElement("input");
+        input.className = "for__manswer-add-commentary form__commentary-add-commentary";
+        input.id = "add-new-answer";
+        input.type = "button";
+        input.value = "Отправить";
+
+        form.appendChild(textarea);
+        form.appendChild(input);
+
+        content.appendChild(form);
+
+
         const answerImg = document.createElement('img');
         answerImg.className = 'answer';
         answerImg.src = './images/Mask group.svg';
@@ -61,7 +89,7 @@ export default class MainComment {
         actions.appendChild(answerImg);
 
         const answerDesc = document.createElement('p');
-        answerDesc.className = 'actions-description';
+        answerDesc.className = 'actions-description add-answer';
         answerDesc.innerText = 'Ответить';
         actions.appendChild(answerDesc);
 
@@ -107,7 +135,12 @@ export default class MainComment {
         plus.innerText = '+';
         plusLike.appendChild(plus);
 
-        return comment
+        const answers = document.createElement('div');
+        answers.className = 'answers';
+
+        block.appendChild(answers);
+
+        return block;
 
     }
 

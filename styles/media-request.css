@@ -1,0 +1,91 @@
+@media (max-width: 980px) {
+    .photo-author {
+        width: 50px;
+        height: 50px;
+    }
+
+    .block-comments-and-rectnagle{
+        margin-right: 40px;
+    }
+
+    .rectangle-2 {
+        margin-right: 20px;
+
+        min-width: 21px;
+    }
+
+    .block-comments-and-rectnagle {
+        width: 100%;
+    }
+
+    .form__commentary {
+        flex-direction: column;
+
+        margin-bottom: 45px;
+    }
+
+    .form__commentary-photo-author {
+        position: absolute;
+    }
+
+    .form__commentary-label {
+        margin: 0;
+    }
+
+
+    .label__info-about-commentary {
+        height: 40px;
+        padding-left: 10px;
+        justify-content: space-around;
+    }
+
+    .info-about-commentary__max-symbols {
+        align-self: flex-end;
+    }
+
+    .form__commentary-add-commentary {
+        min-width: 100%;
+    }
+
+    .form__commentary-description {
+        width: 94.3%;
+
+        margin-bottom: 10px
+    }
+
+    .commentares{
+        align-items: center;
+    }
+
+    .info-about-commentary__name-author{
+        margin-right: 10px;
+    }
+
+    .title__date-published{
+        font-size: 12px
+    }
+
+    .commentary__content-description{
+        margin-bottom: 5px;
+    }
+
+    .actions-description{
+        font-size: 15px
+    }
+
+    .actions-likes {
+        align-items: center;
+        justify-content: center;
+        flex-direction: column-reverse;
+    }
+
+    .commentary__content-actions {
+        width: 100%;
+        align-items: center;
+    }
+
+    .count-likes {
+        padding: 6px 0;
+    }
+
+}

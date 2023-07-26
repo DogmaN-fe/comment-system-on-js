@@ -8,6 +8,10 @@ body {
     display: flex;
 }
 
+.hide {
+    display: none;
+}
+
 .grid {
     display: grid;
 }
@@ -39,7 +43,7 @@ body {
 
 .rectangles {
 
-    grid-template-columns: repeat(2, minmax(243px, 487px));
+    grid-template-columns: repeat(2, minmax(243px, 887px));
     grid-template-rows: 61px 61px 61px 61px;
 
     row-gap: 30px;
@@ -79,6 +83,10 @@ body {
     width: 100%;
 }
 
+.form__commentary-block {
+    width: 100%;
+}
+
 .photo-author {
     width: 70px;
     height: 70px;
@@ -96,6 +104,7 @@ body {
 
 .label__info-about-commentary {
     width: 100%;
+
 
     margin-bottom: 20px;
 
@@ -153,8 +162,17 @@ body {
     cursor: pointer;
 }
 
-.commentary {
+
+/*Commentary*/
+
+.commentares {
+    flex-direction: column;
+}
+
+.block-commentary-and-answers {
+
     margin-bottom: 30px;
+    min-width: 90%;
 }
 
 .photo-author {
@@ -186,7 +204,12 @@ body {
     letter-spacing: 0.14px;
 }
 
+
 .commentary__content-description {
+    word-break: break-all;
+
+    max-width: 100%;
+
     margin-bottom: 15px;
 
     color: #000;
@@ -277,4 +300,32 @@ body {
 
     color: #8AC540;
     font-size: 24px;
+}
+
+.form-answer {
+    padding-top: 20px;
+}
+
+.form__answer-description {
+    margin: 0 10px 0 0;
+}
+
+
+/*Answer*/
+
+.answers {
+    padding-top: 20px;
+    padding-left: 100px;
+}
+
+.added-answer:not(:last-child){
+    margin-bottom: 20px;
+}
+
+.answer-for {
+    opacity: 0.4;
+    color: #000;
+    font-size: 18px;
+
+    margin-right: 15px;
 }

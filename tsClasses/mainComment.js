@@ -8,9 +8,11 @@ export default class MainComment {
         this.idComment = idComment;
     }
     showComment() {
+        const block = document.createElement('div');
+        block.className = 'block-commentary-and-answers';
+        block.setAttribute(`data-id-commentary`, `${this.idComment}`);
         const comment = document.createElement('div');
         comment.className = 'commentary flex';
-        comment.setAttribute(`data-id-commentary`, `${this.idComment}`);
         const img = document.createElement('img');
         img.className = 'photo-author';
         img.src = this.userPhoto;
@@ -19,11 +21,12 @@ export default class MainComment {
         const content = document.createElement('div');
         content.className = 'commentary__content';
         comment.appendChild(content);
+        block.appendChild(comment);
         const title = document.createElement('span');
         title.className = 'commentary__content-title flex';
         content.appendChild(title);
         const name = document.createElement('p');
-        name.className = 'name-author name-commentator';
+        name.className = 'info-about-commentary__name-author name-commentator';
         name.innerText = this.userName;
         title.appendChild(name);
         const date = document.createElement('p');
@@ -37,13 +40,29 @@ export default class MainComment {
         const actions = document.createElement('span');
         actions.className = 'commentary__content-actions flex';
         content.appendChild(actions);
+        const form = document.createElement("form");
+        form.action = "";
+        form.className = "form-answer flex hide";
+        const textarea = document.createElement("textarea");
+        textarea.className = "form__answer-description form__commentary-description";
+        textarea.name = "new-answer";
+        textarea.id = "new-answer";
+        textarea.placeholder = "Введите текст сообщения...";
+        const input = document.createElement("input");
+        input.className = "for__manswer-add-commentary form__commentary-add-commentary";
+        input.id = "add-new-answer";
+        input.type = "button";
+        input.value = "Отправить";
+        form.appendChild(textarea);
+        form.appendChild(input);
+        content.appendChild(form);
         const answerImg = document.createElement('img');
         answerImg.className = 'answer';
         answerImg.src = './images/Mask group.svg';
         answerImg.alt = '';
         actions.appendChild(answerImg);
         const answerDesc = document.createElement('p');
-        answerDesc.className = 'actions-description';
+        answerDesc.className = 'actions-description add-answer';
         answerDesc.innerText = 'Ответить';
         actions.appendChild(answerDesc);
         const favouritesImg = document.createElement('img');
@@ -80,7 +99,10 @@ export default class MainComment {
         plus.className = 'plus';
         plus.innerText = '+';
         plusLike.appendChild(plus);
-        return comment;
+        const answers = document.createElement('div');
+        answers.className = 'answers';
+        block.appendChild(answers);
+        return block;
     }
     saveComentOnLocalStorage() {
         const commentary = {

@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="./styles/reset.css">
     <link rel="stylesheet" href="./styles/block-with-comments__styles.css">
+    <link rel="stylesheet" href="./styles/media-request.css">
 
     <title>Document</title>
 </head>
@@ -39,20 +40,52 @@
             <!-- Секция отправки комментария -->
 
             <form action="" class="form__commentary flex">
-                <img class="form__commentary-photo-author photo-author" src="./images/Максим Авдеенко.png" alt="аватар автора">
-                <label class="form__commentary-label">
-                    <div class="label__info-about-commentary flex">
-                        <p class="info-about-commentary__name-author">Максим Авдеенко</p>
-                        <p class="info-about-commentary__max-symbols">Макс. 1000 символов</p>
-                    </div>
-                    <textarea class="form__commentary-description" name="new-comment" id="new-comment"
-                        placeholder="Введите текст сообщения..."></textarea>
-                </label>
+                <div class="form__commentary-block flex">
+                    <img class="form__commentary-photo-author photo-author" src="./images/Максим Авдеенко.png"
+                    alt="аватар автора">
+                    <label class="form__commentary-label">
+                        <div class="label__info-about-commentary flex">
+                            <p class="info-about-commentary__name-author">Максим Авдеенко</p>
+                            <p class="info-about-commentary__max-symbols">Макс. 1000 символов</p>
+                        </div>
+                        <textarea class="form__commentary-description" name="new-comment" id="new-comment"
+                            placeholder="Введите текст сообщения..."></textarea>
+                    </label>
+                </div>
                 <input class="form__commentary-add-commentary" id="add-button" type="button" value="Отправить">
             </form>
 
             <!-- Секция всех комментариев -->
-            <div class="commentares">
+            <div class="commentares flex">
+               <!--  <div class="block-commentary-and-answers" data-id-commentary="2">
+                    <div class="commentary flex">
+                        <img class="photo-author" src="./images/Максим Авдеенко.png" alt="аватарка комментатора">
+                        <div class="commentary__content">
+                            <span class="commentary__content-title flex">
+                                <p class="info-about-commentary__name-author name-commentator">Максим Авдеенко</p>
+                                <p class="title__date-published">26.07.2023, 13:08:26</p>
+                            </span>
+                            <p class="commentary__content-description">wetr</p>
+                            <span class="commentary__content-actions flex">
+                                <img class="answer" src="./images/Mask group.svg" alt="">
+                                <p class="actions-description add-answer">Ответить</p>
+                                <img class="in-favourites" src="./images/Mask group (1).svg" alt="">
+                                <p class="actions-description">В избранном</p>
+                                <span class="actions-likes flex">
+                                    <div class="circle-like" data-id-commentary="2"><span class="minus">-</span></div>
+                                    <div class="count-likes count-likes_red" data-id-commentary="2">-6</div>
+                                    <div class="circle-like" data-id-commentary="2"><span class="plus">+</span></div>
+                                </span>
+                            </span>
+                            <form action="" class="form-answer flex hide">
+                                <textarea class="form__answer-description form__commentary-description" name="new-answer" id="new-answer"
+                                placeholder="Введите текст сообщения..."></textarea>
+                                <input class="form__answer-add-commentary form__commentary-add-commentary" id="add-new-answer" type="button" value="Отправить">
+                            </form>
+                        </div>
+                    </div>
+                </div> -->
+
             </div>
         </div>
     </div>
