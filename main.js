@@ -5,6 +5,7 @@ const addBtn = document.querySelector("#add-button");
 const textArea = document.querySelector('#new-comment');
 const allComments = document.querySelector('.commentares');
 const maxSymbolsErorr = document.querySelector('.info-about-commentary__max-symbols');
+const howMuchCommentares = document.querySelector('.navigation__section-how-much-commentares');
 let arrCommnets = [];
 let arrAnswers = [];
 let CountCommentares = Number(localStorage.getItem(`CountCommentares`) || '');
@@ -33,12 +34,12 @@ function checkMaxSymbols() {
     }
 }
 /**
- * Добавление комментария на старницу
+ * Функция добавления комментария на старницу
  */
 function addCommentary() {
     // Фиксирование даты написания комментария
     const date = new Date;
-    let comment = new MainComment("Максим Авдеенко", "./images/Максим Авдеенко.png", date.toLocaleString(), textArea.value, 0, ++CountCommentares);
+    let comment = new MainComment("Максим Авдеенко", "./images/Максим Авдеенко.png", date.toLocaleDateString(), textArea.value, 0, ++CountCommentares);
     allComments.prepend(comment.showComment());
     comment.saveComentOnLocalStorage();
     saveCountCommentares();
@@ -46,43 +47,56 @@ function addCommentary() {
     maxSymbolsErorr.textContent = `Макс. 1000 символов`;
     addBtn.style.backgroundColor = '';
     addBtn.removeEventListener('click', addCommentary);
+    // Загружаем количество комментариев на сайт
+    howMuchCommentares.innerText = `Комментарии (${CountCommentares})`;
 }
 /**
- * Добавление ответа на комментарий
+ * Функция добавления ответа на комментарий
+ * @param element Комментарий
+ * @param text Текст ответа
  */
 function addAnswers(element, text) {
     var _a;
     // Фиксирование даты написания комментария
     const date = new Date;
-    let answer = new AnswerComment("Максим Авдеенко", "./images/Максим Авдеенко.png", date.toLocaleString(), text.value, 0, element.GetIdComentary(), ++CountAnswers, element.userName);
-    const answers = (_a = document.querySelector(`[data-id-commentary="${element.GetIdComentary()}"]`)) === null || _a === void 0 ? void 0 : _a.querySelector('.answers');
+    let answer = new AnswerComment("Максим Авдеенко", "./images/Максим Авдеенко.png", date.toLocaleDateString(), text.value, 0, element.getIdComentary(), ++CountAnswers, element.userName);
+    const answers = (_a = document.querySelector(`[data-id-commentary="${element.getIdComentary()}"]`)) === null || _a === void 0 ? void 0 : _a.querySelector('.answers');
     answers.appendChild(answer.showComment());
     answer.saveComentOnLocalStorage();
     saveCountAnswers();
 }
 /**
- * Сохранение количества комментариев
+ * Функция сохранения количества комментариев
  */
 function saveCountCommentares() {
     localStorage.setItem('CountCommentares', `${CountCommentares}`);
 }
+/**
+ * Функция сохроанения количесвта ответов на комментарии
+ */
 function saveCountAnswers() {
     localStorage.setItem('CountAnswers', `${CountAnswers}`);
 }
+/**
+ * Функция активации лайков
+ */
 function activationLikes() {
-    let was = 0;
+    let itWas = false;
     arrCommnets.forEach(element1 => {
         arrAnswers.forEach(element2 => {
-            if (element1.GetIdComentary() == element2.GetIdComentary()) {
-                changeCountLikes(element1, element2, 1, was);
-                was++;
+            if (element1.getIdComentary() == element2.GetIdComentary()) {
+                changeCountLikes(element1, itWas, element2);
+                itWas = true;
+            }
+            else if (element2 == arrAnswers[arrAnswers.length - 1] && element1.getIdComentary() != element2.GetIdComentary()) {
+                changeCountLikes(element1, itWas);
             }
         });
-        was = 0;
+        itWas = false;
     });
 }
 /**
- * Загрузка комментариев
+ * Функция загрузки комментариев
  */
 function loadCommentares() {
     for (let i = 1; i <= CountCommentares; i++) {
@@ -91,15 +105,21 @@ function loadCommentares() {
         let commentary = new MainComment(parseJSON.userName, parseJSON.userPhoto, parseJSON.datePublication, parseJSON.commentaryText, parseJSON.countLikes, parseJSON.idComment);
         allComments.prepend(commentary.showComment());
         arrCommnets.push(commentary);
-        loadAnswer(i);
+        // Ищем ответы на комментарий
+        loadAnswer(parseJSON.userName, i);
     }
     // Добавление всем кнопка лайков ивентов с изменением количества лайков
     activationLikes();
 }
-function loadAnswer(idComment) {
+/**
+ * Функция загрузки овтетов на комментарий
+ * @param commentatorName Имя комменатора
+ * @param idComment Айди комментария на который нужно найти ответы
+ */
+function loadAnswer(commentatorName, idComment) {
     var _a;
     for (let i = 1; i <= CountAnswers; i++) {
-        let str = localStorage.getItem(`answerId-Максим Авдеенко_${idComment}_${i}`) || '';
+        let str = localStorage.getItem(`answerId-${commentatorName}_${idComment}_${i}`) || '';
         if (str === '') {
             continue;
         }
@@ -114,20 +134,21 @@ function loadAnswer(idComment) {
 textArea.addEventListener('input', checkMaxSymbols);
 // Загрузка комментариев перед добавление ивентов кнопка
 loadCommentares();
+// Загружаем количество комментариев на сайт
+howMuchCommentares.innerText = `Комментарии (${CountCommentares})`;
 // Работа с ответами на комментарий
-const addAnswersBtn = document.querySelectorAll('.add-answer');
 arrCommnets.forEach(element => {
-    const block = document.querySelector(`[data-id-commentary="${element.GetIdComentary()}"]`);
+    const block = document.querySelector(`[data-id-commentary="${element.getIdComentary()}"]`);
     const add = block.querySelector('.add-answer');
     const formAnswer = block.querySelector('.form-answer');
     const btn = block.querySelector('#add-new-answer');
     const answer = block.querySelector('#new-answer');
     add.addEventListener('click', () => {
-        formAnswer === null || formAnswer === void 0 ? void 0 : formAnswer.classList.remove('hide');
+        formAnswer.classList.remove('hide');
     });
     btn.addEventListener('click', () => {
         addAnswers(element, answer);
-        formAnswer === null || formAnswer === void 0 ? void 0 : formAnswer.classList.add('hide');
+        formAnswer.classList.add('hide');
         answer.value = '';
     });
 });

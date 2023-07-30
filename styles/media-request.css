@@ -1,91 +1,272 @@
-@media (max-width: 980px) {
-    .photo-author {
-        width: 50px;
-        height: 50px;
+/* Адаптив для десктопа */
+
+@media (max-width: 1300px) {
+    .form__commentary-add-commentary {
+        padding: 15px 50px;
     }
 
-    .block-comments-and-rectnagle{
+    .form__commentary-description {
+        padding: 6px 0 0 30px;
+    }
+
+    .form__commentary-description::placeholder {
+        line-height: 40px;
+    }
+
+    .form__commentary-photo-author {
+        width: 55px;
+        height: 55px;
+    }
+
+    .photo-author {
+        margin-right: 10px;
+        width: 55px;
+        height: 55px;
+    }
+
+
+    .answer,
+    .in-favourites {
+        width: 17px;
+    }
+}
+
+@media (max-width: 1050px) {
+    .rectangle-2 {
         margin-right: 40px;
     }
 
-    .rectangle-2 {
-        margin-right: 20px;
+    .form__commentary-add-commentary {
+        padding: 15px 50px;
+        font-size: 14px;
+    }
 
-        min-width: 21px;
+    .form__commentary-description {
+        padding: 2px 0 0 30px;
+
+    }
+
+    .form__commentary-description::placeholder {
+        line-height: 40px;
+        font-size: 14px;
+    }
+
+    .photo-author {
+        margin-right: 10px;
+        width: 55px;
+        height: 55px;
+    }
+
+
+    .answer,
+    .in-favourites {
+        width: 14px;
+    }
+
+    .count-likes,
+    .info-about-commentary__name-author,
+    .answer-for,
+    .commentary__content-description,
+    .actions-description,
+    .minus,
+    .plus {
+        font-size: 15px;
+    }
+
+    .circle-like {
+        width: 16px;
+        height: 16px;
+    }
+
+    .minus {
+        left: 27%;
+        top: -13%;
+    }
+
+    .plus {
+        left: 20%;
+        top: -15%;
+    }
+}
+
+
+/* Адаптив для планшета и телефона */
+
+@media (max-width: 800px) {
+    .rectangle-2 {
+        display: none;
     }
 
     .block-comments-and-rectnagle {
-        width: 100%;
+        justify-content: center;
+        margin: 0;
+    }
+
+    .rectangles {
+        grid-template-columns: minmax(100px, 100%);
+        grid-template-rows: 61px 61px;
+
+        padding: 10px;
+    }
+
+    .rectangle-3:not(:nth-child(4n)) {
+        display: none;
+    }
+
+    .navigation__section:first-child {
+        margin-right: 50%;
+        margin-bottom: 19px;
+    }
+
+    .form__commentary,
+    .commentares {
+        box-sizing: border-box;
+
+        padding: 0 10px;
     }
 
     .form__commentary {
         flex-direction: column;
-
-        margin-bottom: 45px;
-    }
-
-    .form__commentary-photo-author {
-        position: absolute;
     }
 
     .form__commentary-label {
         margin: 0;
     }
 
-
     .label__info-about-commentary {
+        position: relative;
+        box-sizing: border-box;
+
         height: 40px;
-        padding-left: 10px;
-        justify-content: space-around;
+
+        padding-left: 80px;
+
+        margin-bottom: 15px;
+    }
+
+    .form__commentary-photo-author {
+        position: absolute;
+        top: -14px;
+    }
+
+    .info-about-commentary__name-author {
+        align-self: flex-start;
     }
 
     .info-about-commentary__max-symbols {
         align-self: flex-end;
     }
 
-    .form__commentary-add-commentary {
-        min-width: 100%;
-    }
-
     .form__commentary-description {
-        width: 94.3%;
-
-        margin-bottom: 10px
+        box-sizing: border-box;
+        width: 100%;
+        margin-bottom: 15px;
     }
 
-    .commentares{
+    .form__commentary-add-commentary {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .count-likes,
+    .info-about-commentary__name-author,
+    .answer-for,
+    .commentary__content-description,
+    .actions-description,
+    .minus,
+    .plus {
+        font-size: 18px;
+    }
+
+    .photo-author {
+        position: absolute;
+    }
+
+    .commentary__content-title {
+        height: 50px;
+        padding-left: 70px;
+        margin-bottom: 19px;
+
         align-items: center;
     }
 
-    .info-about-commentary__name-author{
-        margin-right: 10px;
+    .name-commentator {
+        align-self: auto;
+        margin-right: 29px;
     }
 
-    .title__date-published{
-        font-size: 12px
+    .title__date-published {
+        font-size: 12px;
     }
 
-    .commentary__content-description{
-        margin-bottom: 5px;
+    .commentary__content-description {
+        margin-bottom: 0;
     }
 
-    .actions-description{
-        font-size: 15px
+    .commentary__content-actions {
+        align-items: center;
+    }
+
+    .answer,
+    .in-favourites {
+        width: 22px;
     }
 
     .actions-likes {
         align-items: center;
-        justify-content: center;
         flex-direction: column-reverse;
     }
 
-    .commentary__content-actions {
-        width: 100%;
-        align-items: center;
+    .circle-like {
+        margin-right: 0;
     }
 
     .count-likes {
-        padding: 6px 0;
+        padding: 1px 0;
+        margin: 0;
     }
 
+    .minus {
+        left: 25%;
+        top: -13%;
+    }
+
+    .plus {
+        left: 13%;
+        top: -15%;
+    }
+
+    .answers {
+        padding-left: 0;
+    }
+
+    .form-answer {
+        flex-direction: column;
+    }
+
+    .form__answer-description {
+        box-sizing: border-box;
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .for__manswer-add-commentary {
+        width: 100%;
+    }
+
+    .answer__photo-author {
+        top: 8px;
+    }
+
+    .spanAnswer {
+        position: absolute;
+        top: 45px;
+    }
+
+}
+
+@media (max-width:410px) {
+    .navigation__section:nth-child(2) {
+        margin-bottom: 19px;
+    }
 }

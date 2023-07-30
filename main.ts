@@ -3,10 +3,10 @@ import AnswerComment from "./tsClasses/answerComment.js";
 import changeCountLikes from "./changedLikes.js"
 
 const addBtn = document.querySelector("#add-button") as HTMLButtonElement;
-
 const textArea = document.querySelector('#new-comment') as HTMLTextAreaElement;
 const allComments = document.querySelector('.commentares') as HTMLDivElement;
 const maxSymbolsErorr = document.querySelector('.info-about-commentary__max-symbols') as HTMLParagraphElement;
+const howMuchCommentares = document.querySelector('.navigation__section-how-much-commentares') as HTMLParagraphElement;
 
 let arrCommnets: Array<MainComment> = [];
 let arrAnswers: Array<AnswerComment> = [];
@@ -41,13 +41,13 @@ function checkMaxSymbols(): void {
 }
 
 /**
- * Добавление комментария на старницу
+ * Функция добавления комментария на старницу
  */
 function addCommentary(): void {
     // Фиксирование даты написания комментария
     const date: Date = new Date;
 
-    let comment: MainComment = new MainComment("Максим Авдеенко", "./images/Максим Авдеенко.png", date.toLocaleString(), textArea.value, 0, ++CountCommentares);
+    let comment: MainComment = new MainComment("Максим Авдеенко", "./images/Максим Авдеенко.png", date.toLocaleDateString(), textArea.value, 0, ++CountCommentares);
 
     allComments.prepend(comment.showComment());
 
@@ -61,54 +61,69 @@ function addCommentary(): void {
     addBtn.style.backgroundColor = '';
 
     addBtn.removeEventListener('click', addCommentary)
+
+    // Загружаем количество комментариев на сайт
+    howMuchCommentares.innerText = `Комментарии (${CountCommentares})`;
 }
 
 /**
- * Добавление ответа на комментарий
+ * Функция добавления ответа на комментарий
+ * @param element Комментарий
+ * @param text Текст ответа
  */
 function addAnswers(element: MainComment, text: HTMLTextAreaElement) {
     // Фиксирование даты написания комментария
     const date: Date = new Date;
 
-    let answer: AnswerComment = new AnswerComment("Максим Авдеенко", "./images/Максим Авдеенко.png", date.toLocaleString(), text.value, 0, element.GetIdComentary(), ++CountAnswers, element.userName);
+    let answer: AnswerComment = new AnswerComment("Максим Авдеенко", "./images/Максим Авдеенко.png", date.toLocaleDateString(), text.value, 0, element.getIdComentary(), ++CountAnswers, element.userName);
 
 
-    const answers = document.querySelector(`[data-id-commentary="${element.GetIdComentary()}"]`)?.querySelector('.answers') as HTMLDivElement;
+    const answers = document.querySelector(`[data-id-commentary="${element.getIdComentary()}"]`)?.querySelector('.answers') as HTMLDivElement;
 
     answers.appendChild(answer.showComment());
 
     answer.saveComentOnLocalStorage();
 
     saveCountAnswers();
-
 }
 
 /**
- * Сохранение количества комментариев
+ * Функция сохранения количества комментариев
  */
 function saveCountCommentares(): void {
     localStorage.setItem('CountCommentares', `${CountCommentares}`);
 }
 
+/**
+ * Функция сохроанения количесвта ответов на комментарии
+ */
 function saveCountAnswers(): void {
     localStorage.setItem('CountAnswers', `${CountAnswers}`);
 }
 
+/**
+ * Функция активации лайков
+ */
 function activationLikes(): void {
-    let was: number = 0;
+    let itWas: boolean = false;
+
     arrCommnets.forEach(element1 => {
         arrAnswers.forEach(element2 => {
-            if(element1.GetIdComentary() == element2.GetIdComentary()){
-                changeCountLikes(element1, element2, 1, was);
-                was++;
+            if (element1.getIdComentary() == element2.GetIdComentary()) {
+                changeCountLikes(element1, itWas, element2);
+                itWas = true;
+            }
+            else if (element2 == arrAnswers[arrAnswers.length - 1] && element1.getIdComentary() != element2.GetIdComentary()) {
+
+                changeCountLikes(element1, itWas);
             }
         });
-        was = 0;
+        itWas = false;
     });
 }
 
 /**
- * Загрузка комментариев
+ * Функция загрузки комментариев
  */
 function loadCommentares(): void {
     for (let i = 1; i <= CountCommentares; i++) {
@@ -122,17 +137,23 @@ function loadCommentares(): void {
 
         arrCommnets.push(commentary);
 
-        loadAnswer(i);
+        // Ищем ответы на комментарий
+        loadAnswer(parseJSON.userName, i);
     }
 
     // Добавление всем кнопка лайков ивентов с изменением количества лайков
     activationLikes();
 }
 
-function loadAnswer(idComment: number): void {
+/**
+ * Функция загрузки овтетов на комментарий
+ * @param commentatorName Имя комменатора
+ * @param idComment Айди комментария на который нужно найти ответы
+ */
+function loadAnswer(commentatorName: string, idComment: number): void {
     for (let i = 1; i <= CountAnswers; i++) {
 
-        let str: string = localStorage.getItem(`answerId-Максим Авдеенко_${idComment}_${i}`) || '';
+        let str: string = localStorage.getItem(`answerId-${commentatorName}_${idComment}_${i}`) || '';
 
         if (str === '') {
             continue;
@@ -159,27 +180,26 @@ textArea.addEventListener('input', checkMaxSymbols);
 // Загрузка комментариев перед добавление ивентов кнопка
 loadCommentares();
 
+// Загружаем количество комментариев на сайт
+howMuchCommentares.innerText = `Комментарии (${CountCommentares})`;
 
 // Работа с ответами на комментарий
-const addAnswersBtn = document.querySelectorAll('.add-answer');
-
 arrCommnets.forEach(element => {
-    const block = document.querySelector(`[data-id-commentary="${element.GetIdComentary()}"]`) as HTMLDivElement;
+    const block = document.querySelector(`[data-id-commentary="${element.getIdComentary()}"]`) as HTMLDivElement;
     const add = block.querySelector('.add-answer') as HTMLParagraphElement;
-    const formAnswer = block.querySelector('.form-answer');
+    const formAnswer = block.querySelector('.form-answer') as HTMLFormElement;
     const btn = block.querySelector('#add-new-answer') as HTMLButtonElement;
     const answer = block.querySelector('#new-answer') as HTMLTextAreaElement;
 
     add.addEventListener('click', () => {
-        formAnswer?.classList.remove('hide');
+        formAnswer.classList.remove('hide');
     });
 
     btn.addEventListener('click', () => {
         addAnswers(element, answer);
 
-        formAnswer?.classList.add('hide');
+        formAnswer.classList.add('hide');
 
         answer.value = '';
     });
 });
-

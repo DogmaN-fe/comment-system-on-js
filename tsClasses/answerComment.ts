@@ -11,13 +11,13 @@ export default class AnswerComment extends MainComment {
     }
 
     showComment() {
-        
+
         const answer = document.createElement('div');
         answer.className = 'added-answer flex';
         answer.setAttribute(`data-id-answer`, `${this.idAnswer}`);
 
         const img = document.createElement('img');
-        img.className = 'photo-author';
+        img.className = 'answer__photo-author photo-author';
         img.src = this.userPhoto;
         img.alt = 'аватарка комментатора';
         answer.appendChild(img);
@@ -35,16 +35,21 @@ export default class AnswerComment extends MainComment {
         name.innerText = this.userName;
         title.appendChild(name);
 
+        const spanAnswer = document.createElement('span');
+        spanAnswer.className = 'spanAnswer flex';
+
         const answerImgFor = document.createElement('img');
-        answerImgFor.className = 'answer';
+        answerImgFor.className = 'img__answer-for answer';
         answerImgFor.src = './images/Mask group.svg';
         answerImgFor.alt = '';
-        title.appendChild(answerImgFor);
+        spanAnswer.appendChild(answerImgFor);
 
         const answerFor = document.createElement('p');
         answerFor.className = 'answer-for';
         answerFor.innerText = this.WhoAnswer;
-        title.appendChild(answerFor);
+        spanAnswer.appendChild(answerFor);
+
+        title.appendChild(spanAnswer);
 
         const date = document.createElement('p');
         date.className = 'title__date-published';
@@ -62,13 +67,13 @@ export default class AnswerComment extends MainComment {
 
         const favouritesImg = document.createElement('img');
         favouritesImg.className = 'in-favourites';
-        favouritesImg.src = './images/Mask group (1).svg';
+        favouritesImg.src = './images/not in favourites.svg';
         favouritesImg.alt = '';
         actions.appendChild(favouritesImg);
 
         const favouritesDesc = document.createElement('p');
         favouritesDesc.className = 'actions-description';
-        favouritesDesc.innerText = 'В избранном';
+        favouritesDesc.innerText = 'В избранное';
         actions.appendChild(favouritesDesc);
 
         const likes = document.createElement('span');
@@ -135,7 +140,7 @@ export default class AnswerComment extends MainComment {
         return this.idComment;
     }
 
-    GetIdAnswer(): number{
+    GetIdAnswer(): number {
         return this.idAnswer;
     }
 }

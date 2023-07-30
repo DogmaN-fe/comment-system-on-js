@@ -5,6 +5,7 @@ export default class MainComment {
     protected commentaryText: string;
     protected countLikes: number;
     protected idComment: number;
+    protected inFavourites: boolean = false
 
 
     constructor(userName: string, userPhoto: string, datePublication: string, commentaryText: string, countLikes: number, idComment: number) {
@@ -95,13 +96,13 @@ export default class MainComment {
 
         const favouritesImg = document.createElement('img');
         favouritesImg.className = 'in-favourites';
-        favouritesImg.src = './images/Mask group (1).svg';
+        favouritesImg.src = './images/not in favourites.svg';
         favouritesImg.alt = '';
         actions.appendChild(favouritesImg);
 
         const favouritesDesc = document.createElement('p');
         favouritesDesc.className = 'actions-description';
-        favouritesDesc.innerText = 'В избранном';
+        favouritesDesc.innerText = 'В избранное';
         actions.appendChild(favouritesDesc);
 
         const likes = document.createElement('span');
@@ -152,6 +153,7 @@ export default class MainComment {
             commentaryText: string;
             countLikes: null | number;
             idComment: null | number;
+            inFavouritrs: boolean
         }
         const commentary: commentary_settings = {
             userName: this.userName,
@@ -160,6 +162,7 @@ export default class MainComment {
             commentaryText: this.commentaryText,
             countLikes: this.countLikes,
             idComment: this.idComment,
+            inFavouritrs: this.inFavourites
         };
 
         localStorage.setItem(`commentaryId-${this.userName}_${this.idComment}`, JSON.stringify(commentary));
@@ -169,7 +172,11 @@ export default class MainComment {
         this.countLikes += plusOrMinus;
     }
 
-    GetIdComentary(): number {
+    getIdComentary(): number {
         return this.idComment;
+    }
+
+    addInFavourites(){
+        this.inFavourites = true;
     }
 }
