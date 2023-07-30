@@ -113,6 +113,11 @@
         display: none;
     }
 
+    .navigation {
+
+        padding: 0 0 0 10px;
+    }
+
     .navigation__section:first-child {
         margin-right: 50%;
         margin-bottom: 19px;
@@ -122,7 +127,7 @@
     .commentares {
         box-sizing: border-box;
 
-        padding: 0 10px;
+        padding: 0 0 0 10px;
     }
 
     .form__commentary {
@@ -210,6 +215,11 @@
     .answer,
     .in-favourites {
         width: 22px;
+        margin-right: 3px;
+    }
+
+    .actions-description{
+        margin-right: 12px;
     }
 
     .actions-likes {
@@ -252,10 +262,6 @@
 
     .for__manswer-add-commentary {
         width: 100%;
-    }
-
-    .answer__photo-author {
-        top: 8px;
     }
 
     .spanAnswer {

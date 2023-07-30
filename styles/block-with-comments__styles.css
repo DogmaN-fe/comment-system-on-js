@@ -170,7 +170,6 @@ body {
 /* Navigation */
 .navigation {
     margin-bottom: 30px;
-    padding: 0 10px;
 
     flex-wrap: wrap;
 }
@@ -218,6 +217,10 @@ body {
 
 .commentares {
     flex-direction: column;
+}
+
+.commentary {
+    position: relative;
 }
 
 .block-commentary-and-answers {
